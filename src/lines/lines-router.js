@@ -3,7 +3,7 @@ const path = require('path')
 const express = require('express')
 // const xss = require('xss')
 const LinesService = require('./linesservice')
-// const { requireAuth } = require('../middleware/basic-auth')
+const { requireAuth } = require('../middleware/basic-auth')
 
 
 const LinesRouter = express.Router()
@@ -19,7 +19,7 @@ const serializeLine = line => ({
 
     LinesRouter
         .route('/')
-        // .all(requireAuth)
+        .all(requireAuth)
         .get( (req, res, next) => {
           LinesService.getAllLines(req.app.get('db'))
           .then(lines => {
@@ -32,7 +32,7 @@ const serializeLine = line => ({
     LinesRouter
         .route('/:id')
         .all(
-        //   requireAuth, 
+          requireAuth, 
           (req, res, next) => {
           if(isNaN(parseInt(req.params.id))) {
             return res.status(404).json({

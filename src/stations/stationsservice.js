@@ -28,7 +28,7 @@ const StationsService = {
         reportDate: 'reports.date',
         reportStrikes: 'reports.strikes'
       })
-        .join('reports', 'reports.station', 'stations.id')
+        .leftJoin('reports', 'reports.station', 'stations.id')
         
         .where({ 'stations.id': stationId })
         .then((results) => {

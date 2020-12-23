@@ -22,7 +22,7 @@ const serializeReport = report => ({
 
 reportsRouter
     .route('/')
-    // .all(requireAuth)    
+    .all(requireAuth)    
     .get( (req, res, next) => {
       ReportsService.getAllReports(req.app.get('db'))
       .then(reports => {
@@ -50,7 +50,7 @@ reportsRouter
   
 reportsRouter
     .route('/:id')
-    // .all(requireAuth)
+    .all(requireAuth)
     .all( (req,res,next) => {
         if(isNaN(parseInt(req.params.id))) {
           return res.status(404).json({

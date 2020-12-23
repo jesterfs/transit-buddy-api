@@ -27,7 +27,7 @@ const serializeMember = member => ({
 
 membersRouter
     .route('/')
-    // .all(requireAuth)    
+    .all(requireAuth)    
     .get( (req, res, next) => {
       MembersService.getAllMembers(req.app.get('db'))
       .then(members => {
@@ -86,7 +86,7 @@ membersRouter
   
 membersRouter
     .route('/:id')
-    // .all(requireAuth)
+    .all(requireAuth)
     .all( (req,res,next) => {
         if(isNaN(parseInt(req.params.id))) {
           return res.status(404).json({
