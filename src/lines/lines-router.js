@@ -19,7 +19,7 @@ const serializeLine = line => ({
 
     LinesRouter
         .route('/')
-        .all(requireAuth)
+        // .all(requireAuth)
         .get( (req, res, next) => {
           LinesService.getAllLines(req.app.get('db'))
           .then(lines => {
