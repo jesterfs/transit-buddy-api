@@ -29,5 +29,9 @@ const ReportsService = {
         .where({id})
         .update(newReportFields)
     },
+
+    strikeReport(knex, id, userId) {
+      return knex.raw(`INSERT INTO report_strikes (report_id, member_id) VALUES (${id}, ${userId}) ON CONFLICT DO NOTHING`)
+    }
 }
   module.exports = ReportsService 

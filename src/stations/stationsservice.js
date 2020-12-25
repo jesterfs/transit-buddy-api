@@ -26,7 +26,7 @@ const StationsService = {
         reportId: 'reports.id',
         reportName: 'reports.name',
         reportDate: 'reports.date',
-        reportStrikes: 'reports.strikes'
+        reportStrikes: db.raw('(SELECT COUNT(*) FROM report_strikes WHERE report_id = reports.id)')
       })
         .leftJoin('reports', 'reports.station', 'stations.id')
         

@@ -1,4 +1,8 @@
 
+DROP TABLE IF EXISTS reports;
+DROP TABLE IF EXISTS members;
+DROP TABLE IF EXISTS stations;
+DROP TABLE IF EXISTS lines;
 
 
 CREATE TABLE lines (

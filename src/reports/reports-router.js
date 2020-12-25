@@ -111,4 +111,11 @@ reportsRouter
       .catch(next)
     })
 
+reportsRouter
+    .post('/:id/strike', requireAuth, (req, res, next) => {
+      ReportsService.strikeReport(req.app.get('db'), req.params.id, res.user.id)
+        .then(() => res.json({message: 'success'}))
+        .catch(next)
+    })
+    
     module.exports = reportsRouter
