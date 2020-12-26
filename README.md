@@ -1,26 +1,29 @@
-# Express Boilerplate!
+TRANSIT BUDDY
 
-This is a boilerplate project used for starting new projects!
+Live App: https://transitbuddy.netlify.app/
 
-## Set up
+Summary: Transit Buddy is a tool for transit riders to see what obstacles they might encounter on their commute and report any obstacles they encounter.
+These reports last for three days or until a certain number of unique users report them as resolved.
 
-Complete the following steps to start a new project (NEW-PROJECT-NAME):
+Documentation: 
+Base Url: https://stormy-reef-88662.herokuapp.com/api
 
-1. Clone this repository to your local machine `git clone BOILERPLATE-URL NEW-PROJECTS-NAME`
-2. `cd` into the cloned repository
-3. Make a fresh start of the git history for this project with `rm -rf .git && git init`
-4. Install the node dependencies `npm install`
-5. Move the example Environment file to `.env` that will be ignored by git and read by the express server `mv example.env .env`
-6. Edit the contents of the `package.json` to use NEW-PROJECT-NAME instead of `"name": "express-boilerplate",`
+  URLs By Resource:
+    Lines: You cannot add, delete, or update lines via the API.
+      Get all lines: GET Base Url + '/lines'
+      Get a line with all stations: GET Base Url + '/lines/' + line ID
+      
+    Stations: You cannot add, delete, or update stations via the API.
+      Get all stations: GET Base Url + '/stations'
+      Get a station with all reports: GET Base Url + '/stations/' + station ID
+      
+    Reports: You cannot delete or update reports via the API.
+      Get all reports: GET Base Url + '/reports'
+      Get a report by id: GET Base Url + '/reports/' + report ID
+      Add a report: POST Base Url + '/reports' 
+        body must include name, date(as timestampz), and a station ID.
+      Add a resolution report: POST Base Url + '/reports/' + report ID + '/strike'
 
-## Scripts
 
-Start the application `npm start`
-
-Start nodemon for the application `npm run dev`
-
-Run the tests `npm test`
-
-## Deploying
-
-When your new project is ready for deployment, add a new Heroku application with `heroku create`. This will make a new git remote called "heroku" and you can then `npm run deploy` which will push to this remote's master branch.
+Technology Used:
+Node,js, Express, PostgreSQL, SQL, Knex, Javascript
