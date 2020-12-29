@@ -30,33 +30,33 @@ const LinesService = {
         
         .where({ 'lines.id': lineId })
         .then((results) => {
-          const first = results[0];
+          const first = results[0]
           if (!first)
-            return null;
+            return null
     
-          const { id, name, color} = first;
+          const { id, name, color} = first
           const line = {
             id, name, color, stations: []
-          };
+          }
 
-          const sIds = new Set();
+          const sIds = new Set()
 
           for (const l of results) {
-            const {  stationId, stationName } = l;
+            const {  stationId, stationName } = l
             
             if (stationId && !sIds.has(stationId)) {
               const station = {
                   id: stationId,
                   name: stationName,
-                };
-                line.stations.push(station);
+                }
+                line.stations.push(station)
                 sIds.add(stationId)
               }
             }
 
 
-          return line;
-        });
+          return line
+        })
     },
 
     deleteLine(knex, id) {

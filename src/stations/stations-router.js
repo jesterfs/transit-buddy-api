@@ -1,7 +1,6 @@
 
 const path = require('path')
 const express = require('express')
-// const xss = require('xss')
 const StationsService = require('./stationsservice')
 const { requireAuth } = require('../middleware/basic-auth')
 

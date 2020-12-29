@@ -18,6 +18,7 @@ const StationsService = {
     },
 
     getReportsByStationId(db, stationId) {
+      const strikeCount = '(SELECT COUNT(*) FROM report_strikes WHERE report_id = reports.id)'
       return db('stations').select({
         id: 'stations.id',
         name: 'stations.name',
@@ -26,27 +27,30 @@ const StationsService = {
         reportId: 'reports.id',
         reportName: 'reports.name',
         reportDate: 'reports.date',
-        reportStrikes: db.raw('(SELECT COUNT(*) FROM report_strikes WHERE report_id = reports.id)')
+        reportStrikes: db.raw(strikeCount)
       })
         .leftJoin('reports', 'reports.station', 'stations.id')
         
         .where({ 'stations.id': stationId })
+        // .andWhere(db.raw(`${strikeCount} < 3`))
+        // .andWhere(db.raw("reports.date >= now() - interval '3 days'"))
+        
         .then((results) => {
-          const first = results[0];
+          const first = results[0]
           if (!first)
-            return null;
+            return null
     
-          const { id, name, line} = first;
+          const { id, name, line} = first
           const station = {
             id, name, line, reports: []
-          };
+          }
 
-          const rIds = new Set();
+          const rIds = new Set()
 
           
 
           for (const line of results) {
-            const {  reportId, reportName, reportDate, reportStrikes } = line;
+            const {  reportId, reportName, reportDate, reportStrikes } = line
             
             if (reportId && !rIds.has(reportId)) {
               const report = {
@@ -54,16 +58,16 @@ const StationsService = {
                   name: reportName,
                   date: reportDate,
                   strikes: reportStrikes 
-                };
+                }
               
-                station.reports.push(report);
+                station.reports.push(report)
                 rIds.add(reportId)
               }
             }
 
 
-          return station;
-        });
+          return station
+        })
     },
 
     deleteStation(knex, id) {

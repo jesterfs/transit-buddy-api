@@ -1,7 +1,6 @@
 
 const path = require('path')
 const express = require('express')
-// const xss = require('xss')
 const LinesService = require('./linesservice')
 const { requireAuth } = require('../middleware/basic-auth')
 
@@ -19,7 +18,6 @@ const serializeLine = line => ({
 
     LinesRouter
         .route('/')
-        // .all(requireAuth)
         .get( (req, res, next) => {
           LinesService.getAllLines(req.app.get('db'))
           .then(lines => {
