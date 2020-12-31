@@ -19,6 +19,10 @@ const StationsService = {
 
     getReportsByStationId(db, stationId) {
       const strikeCount = '(SELECT COUNT(*) FROM report_strikes WHERE report_id = reports.id)'
+      const today = new Date().getTime() / 1000
+      const threeDays = today - (72 * 60 * 60)
+      
+
       return db('stations').select({
         id: 'stations.id',
         name: 'stations.name',
@@ -29,7 +33,12 @@ const StationsService = {
         reportDate: 'reports.date',
         reportStrikes: db.raw(strikeCount)
       })
-        .leftJoin('reports', 'reports.station', 'stations.id')
+
+        .leftJoin('reports', function() {
+          this.on('reports.station' , '=' , 'stations.id')
+            .andOn(db.raw(strikeCount) , '<' , 3)
+            .andOn(db.raw("reports.date >= now() - interval '3 days'"))
+        })
         
         .where({ 'stations.id': stationId })
         // .andWhere(db.raw(`${strikeCount} < 3`))
@@ -52,12 +61,14 @@ const StationsService = {
           for (const line of results) {
             const {  reportId, reportName, reportDate, reportStrikes } = line
             
-            if (reportId && !rIds.has(reportId)) {
+            if (reportId && !rIds.has(reportId) 
+            // && new Date(reportDate).getTime() / 1000 >= threeDays
+            ) {
               const report = {
                   id: reportId,
                   name: reportName,
                   date: reportDate,
-                  strikes: reportStrikes 
+                  strikes: Number(reportStrikes) 
                 }
               
                 station.reports.push(report)

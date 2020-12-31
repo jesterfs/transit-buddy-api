@@ -139,6 +139,11 @@ describe('members service object', function() {
 
     context('Given Members has no data', () => {
 
+        beforeEach(() => {
+            return db
+                .into('lines')
+                .insert(testLines)
+        })
 
         it('getAllMembers() resolves an empty array', () => {
             return MembersService.getAllMembers(db)

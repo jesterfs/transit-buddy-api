@@ -4,6 +4,8 @@ const knex = require('knex')
 describe('station service object', function() {
     let db 
 
+    const now = new Date();
+
     let testLines = [
         {
             id: 1,
@@ -68,14 +70,14 @@ describe('station service object', function() {
         {
             id: 1,
             name: 'report1',
-            date: new Date ('2020-10-02T17:00:00.000Z'),
+            date: now,
             station: 1,
             strikes: 0
         },
         {
             id: 2,
             name: 'report2',
-            date: new Date ('2020-10-02T17:00:00.000Z'),
+            date: now,
             station: 2,
             strikes: 0
         },
@@ -83,7 +85,7 @@ describe('station service object', function() {
             
             id: 3,
             name: 'report3',
-            date: new Date ('2020-10-02T17:00:00.000Z'),
+            date: now,
             station: 3,
             strikes: 0
         }

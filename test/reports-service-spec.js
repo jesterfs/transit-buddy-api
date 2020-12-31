@@ -213,7 +213,7 @@ describe('reports service object', function() {
                 })
         })
 
-        it.only('insertReport() inserts a new report and resolves the new report with an id and zero strikes', () => {
+        it('insertReport() inserts a new report and resolves the new report with an id and zero strikes', () => {
             const newReport = {
                 name: 'Test new report',
                 date: new Date ('2020-10-02T17:00:00.000Z'),
