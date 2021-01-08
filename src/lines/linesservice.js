@@ -76,7 +76,7 @@ const LinesService = {
               const station = {
                   id: stationId,
                   name: stationName,
-                  reports: stationReportCount
+                  reports: Number(stationReportCount)
                 }
                 line.stations.push(station)
                 sIds.add(stationId)

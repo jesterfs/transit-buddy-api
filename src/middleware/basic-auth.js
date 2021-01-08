@@ -15,7 +15,7 @@ function requireAuth(req, res, next) {
 
     return MembersService.getById(req.app.get('db'), userId).then(
         (user) => {
-            console.log(userId)
+            
             if (!user)
                 return res.status(401).json({message: 'Invalid token'})
 
